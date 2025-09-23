@@ -1,0 +1,133 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  name: terraform-google-compute-firewall
+spec:
+  info:
+    title: Google Compute Firewall
+    source:
+      repo: https://ospo-internal-review.git.corp.google.com/c/releasing/terraform-google-compute-firewall/terraform-google-compute-firewall/+/5600
+      sourceType: git
+    actuationTool:
+      flavor: Terraform
+      version: "~> 1.3"
+    description:
+      tagline: A secure and flexible VPC firewall rule.
+      detailed: "This module creates a google_compute_firewall resource to allow or deny traffic to VM instances."
+      preDeploy: To deploy this blueprint, you must have a project with the Compute Engine API enabled and the appropriate IAM permissions.
+  interfaces:
+    variables:
+      - name: project_id
+        description: The project ID where the firewall rule will be created.
+        varType: string
+        required: true
+      - name: name
+        description: The name of the firewall rule. The name must be 1-63 characters long, and comply with RFC1035.
+        varType: string
+        required: true
+      - name: network
+        description: The name or self_link of the VPC network to which this firewall rule will be applied.
+        varType: string
+        required: true
+        connections:
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-network
+              version: ~> 7.0
+            spec:
+              outputExpr: self_link
+      - name: description
+        description: An optional description for this firewall rule.
+        varType: string
+        defaultValue: ""
+      - name: direction
+        description: The direction of traffic to which this firewall applies; either INGRESS or EGRESS.
+        varType: string
+        defaultValue: INGRESS
+      - name: priority
+        description: Priority for this rule, from 0 to 65535. Lower numbers indicate higher priority.
+        varType: number
+        defaultValue: 1000
+      - name: disabled
+        description: If set to true, the firewall rule is not enforced.
+        varType: bool
+        defaultValue: false
+      - name: allow
+        description: A list of objects representing ALLOW rules. Each object should have a 'protocol' and an optional 'ports'.
+        varType: |-
+          list(object({
+              protocol = string
+              ports    = optional(list(string))
+            }))
+        defaultValue: []
+      - name: deny
+        description: A list of objects representing DENY rules. Each object should have a 'protocol' and an optional 'ports'.
+        varType: |-
+          list(object({
+              protocol = string
+              ports    = optional(list(string))
+            }))
+        defaultValue: []
+      - name: destination_ranges
+        description: A list of destination IP CIDR ranges to which this rule applies. (For EGRESS rules).
+        varType: list(string)
+        defaultValue: []
+      - name: source_ranges
+        description: A list of source IP CIDR ranges to which this rule applies.
+        varType: list(string)
+        defaultValue: []
+      - name: source_tags
+        description: A list of source tags to which this rule applies.
+        varType: list(string)
+        defaultValue: []
+      - name: target_tags
+        description: A list of target tags to which this rule applies.
+        varType: list(string)
+        defaultValue: []
+      - name: source_service_accounts
+        description: A list of source service accounts. Cannot be used with source_tags or target_tags.
+        varType: list(string)
+        defaultValue: []
+        connections:
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-service-accounts//modules/simple-sa
+              version: ~> 4.2
+            spec:
+              outputExpr: email
+      - name: target_service_accounts
+        description: A list of target service accounts. Cannot be used with source_tags or target_tags.
+        varType: list(string)
+        defaultValue: []
+        connections:
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-service-accounts//modules/simple-sa
+              version: ~> 4.2
+            spec:
+              outputExpr: email
+      - name: log_config_metadata
+        description: Controls whether metadata is included in firewall logs. Can be 'INCLUDE_ALL_METADATA' or 'EXCLUDE_ALL_METADATA'.
+        varType: string
+        defaultValue: EXCLUDE_ALL_METADATA
+  requirements:
+    roles:
+      - level: Project
+        roles:
+          - roles/compute.securityAdmin
+    services:
+      - compute.googleapis.com
+    providerVersions:
+      - source: hashicorp/google
+        version: ~> 5.4
