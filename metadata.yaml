@@ -18,17 +18,25 @@ metadata:
   name: terraform-google-compute-firewall
 spec:
   info:
-    title: Google Compute Firewall
+    title: terraform-google-google_compute_firewall
     source:
       repo: https://ospo-internal-review.git.corp.google.com/c/releasing/terraform-google-compute-firewall/terraform-google-compute-firewall/+/5600
       sourceType: git
     actuationTool:
       flavor: Terraform
-      version: "~> 1.3"
+      version: ~> 1.3
     description:
-      tagline: A secure and flexible VPC firewall rule.
-      detailed: "This module creates a google_compute_firewall resource to allow or deny traffic to VM instances."
-      preDeploy: To deploy this blueprint, you must have a project with the Compute Engine API enabled and the appropriate IAM permissions.
+      preDeploy: To deploy this blueprint you must have an active billing account and billing permissions.
+  content:
+    examples:
+      - name: deny_rule_example
+        location: examples/deny_rule_example
+      - name: egress_rule_example
+        location: examples/egress_rule_example
+      - name: service_account_example
+        location: examples/service_account_example
+      - name: simple_example
+        location: examples/simple_example
   interfaces:
     variables:
       - name: project_id
@@ -121,6 +129,19 @@ spec:
         description: Controls whether metadata is included in firewall logs. Can be 'INCLUDE_ALL_METADATA' or 'EXCLUDE_ALL_METADATA'.
         varType: string
         defaultValue: EXCLUDE_ALL_METADATA
+    outputs:
+      - name: creation_timestamp
+        description: The creation timestamp of the firewall rule in RFC3339 text format.
+        type: string
+      - name: id
+        description: The unique identifier for the firewall rule resource.
+        type: string
+      - name: name
+        description: The name of the created firewall rule.
+        type: string
+      - name: self_link
+        description: The self-referential URI of the created firewall rule.
+        type: string
   requirements:
     roles:
       - level: Project

@@ -32,7 +32,7 @@ variable "network" {
 variable "description" {
   description = "An optional description for this firewall rule."
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "direction" {

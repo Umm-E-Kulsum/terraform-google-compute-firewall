@@ -1,3 +1,17 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # terraform-google-google_compute_firewall
 
 ## Description
@@ -43,7 +57,7 @@ Functional examples are included in the
 |------|-------------|------|---------|:--------:|
 | allow | A list of objects representing ALLOW rules. Each object should have a 'protocol' and an optional 'ports'. | <pre>list(object({<br>    protocol = string<br>    ports    = optional(list(string))<br>  }))</pre> | `[]` | no |
 | deny | A list of objects representing DENY rules. Each object should have a 'protocol' and an optional 'ports'. | <pre>list(object({<br>    protocol = string<br>    ports    = optional(list(string))<br>  }))</pre> | `[]` | no |
-| description | An optional description for this firewall rule. | `string` | `null` | no |
+| description | An optional description for this firewall rule. | `string` | `""` | no |
 | destination\_ranges | A list of destination IP CIDR ranges to which this rule applies. (For EGRESS rules). | `list(string)` | `[]` | no |
 | direction | The direction of traffic to which this firewall applies; either INGRESS or EGRESS. | `string` | `"INGRESS"` | no |
 | disabled | If set to true, the firewall rule is not enforced. | `bool` | `false` | no |
