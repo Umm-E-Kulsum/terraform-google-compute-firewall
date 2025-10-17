@@ -30,24 +30,32 @@ spec:
         allow:
           name: allow
           title: Allow
+          level: 1
         deny:
           name: deny
           title: Deny
+          level: 1
         description:
           name: description
           title: Description
         destination_ranges:
           name: destination_ranges
           title: Destination Ranges
+          level: 1
         direction:
           name: direction
           title: Direction
+          level: 1
         disabled:
           name: disabled
           title: Disabled
+          altDefaults:
+            - value: true
         log_config_metadata:
           name: log_config_metadata
           title: Log Config Metadata
+          altDefaults:
+            - value: 'INCLUDE_ALL_METADATA'
         name:
           name: name
           title: Name
@@ -63,6 +71,7 @@ spec:
         source_ranges:
           name: source_ranges
           title: Source Ranges
+          level: 1
         source_service_accounts:
           name: source_service_accounts
           title: Source Service Accounts
@@ -75,3 +84,4 @@ spec:
         target_tags:
           name: target_tags
           title: Target Tags
+          level: 1
