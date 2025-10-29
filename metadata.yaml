@@ -24,7 +24,7 @@ spec:
       sourceType: git
     actuationTool:
       flavor: Terraform
-      version: 1.0.0
+      version: 1.0.2
     description:
       preDeploy: To deploy this blueprint you must have an active billing account and billing permissions.
   content:
