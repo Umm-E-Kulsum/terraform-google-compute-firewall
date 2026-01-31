@@ -22,7 +22,7 @@ spec:
     source:
       repo: https://ospo-internal-review.git.corp.google.com/c/releasing/terraform-google-compute-firewall/terraform-google-compute-firewall/+/5600
       sourceType: git
-    version: 1.0.4
+    version: 1.0.5
     actuationTool:
       flavor: Terraform
       version: "~> 1.3"
