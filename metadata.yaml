@@ -104,6 +104,16 @@ spec:
             version: ">= 4.3"
           spec:
             outputExpr: addresses
+        - source:
+            source: github.com/terraform-google-modules/terraform-google-lb-http//modules/frontend
+            version: ">= 14.0.0"
+          spec:
+            outputExpr: external_ip
+        - source:
+            source: github.com/googlestaging/terraform-google-regional-lb-http//modules/frontend
+            version: ">= 0.7.0"
+          spec:
+            outputExpr: external_ip
       - name: source_tags
         description: A list of source tags to which this rule applies.
         varType: list(string)
