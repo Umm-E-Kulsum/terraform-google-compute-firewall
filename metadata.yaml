@@ -98,6 +98,12 @@ spec:
         description: A list of source IP CIDR ranges to which this rule applies.
         varType: list(string)
         defaultValue: []
+        connections:
+        - source:
+            source: github.com/terraform-google-modules/terraform-google-address
+            version: ">= 4.3"
+          spec:
+            outputExpr: addresses
       - name: source_tags
         description: A list of source tags to which this rule applies.
         varType: list(string)
