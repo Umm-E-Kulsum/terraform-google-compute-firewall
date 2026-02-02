@@ -26,6 +26,6 @@ terraform {
     }
   }
   provider_meta "google" {
-    module_name = "blueprints/terraform/compute-firewall/v1.0.7"
+    module_name = "blueprints/terraform/compute-firewall/v1.0.6"
   }
 }
