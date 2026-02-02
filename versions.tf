@@ -13,12 +13,19 @@
 # limitations under the License.
 
 terraform {
-  required_version = "~> 1.3"
+  required_version = ">= 1.3"
 
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "~> 5.4"
+      version = ">= 6.0, < 8"
     }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = ">= 6.0, < 8.0"
+    }
+  }
+  provider_meta "google" {
+    module_name = "blueprints/terraform/compute-firewall/v1.0.7"
   }
 }
