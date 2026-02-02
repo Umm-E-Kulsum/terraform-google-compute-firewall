@@ -57,7 +57,7 @@ spec:
               source: github.com/terraform-google-modules/terraform-google-network
               version: ">= 13.0.0"
             spec:
-              outputExpr: self_link
+              outputExpr: network_name
       - name: description
         description: An optional description for this firewall rule.
         varType: string
